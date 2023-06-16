@@ -8,11 +8,13 @@ public class ClickForce : MonoBehaviour
 
 
     private Rigidbody2D rb;
+    private Animator anim;
     [HideInInspector] public int jumpCount = 0;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     private void Update()

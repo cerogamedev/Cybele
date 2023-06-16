@@ -9,6 +9,7 @@ public class ChapterStart : MonoBehaviour
 {
     public AudioClip[] audioFiles;
     public string[] textToDisplay;
+    public GameObject[] backGroundImage;
     public string nextSceneName;
     public TextMeshProUGUI displayText;
     private int currentAudioIndex = 0;
@@ -22,6 +23,15 @@ public class ChapterStart : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         PlayAudio();
+        for (int i=0; i<backGroundImage.Length;i++)
+        {
+            if (backGroundImage[i] == null)
+            {
+                return;
+            }
+            else
+                backGroundImage[i].SetActive(false);
+        }
     }
 
     void PlayAudio()
@@ -70,5 +80,14 @@ public class ChapterStart : MonoBehaviour
     private void OnDestroy()
     {
         StopDisplayCoroutine();
+    }
+    private void Update()
+    {
+        if (backGroundImage[currentAudioIndex]==null)
+        {
+            return;
+        }
+        else
+            backGroundImage[currentAudioIndex].SetActive(true);
     }
 }

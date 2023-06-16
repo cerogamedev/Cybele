@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlatformCreator : MonoBehaviour
 {
     public GameObject platformPrefab; // Oluþturulacak platform prefabý
+    public GameObject[] enemyMob;
     public Transform oyuncu; // Oyuncu referansý
     public float yaratmaMesafesi = 50f; // Oyuncudan ne kadar yukarýya kadar platform yaratýlacaðý
     public float yaratmaAraligi = 2f; // Platformlarýn yaratma aralýðý
@@ -44,9 +45,23 @@ public class PlatformCreator : MonoBehaviour
     private void YaratPlatform()
     {
         // Yeni platformu yarat
-        float rastgeleX = Random.Range(solSinir+3, sagSinir-3);
+        float rastgeleX = Random.Range(solSinir+3, 0);
+        float rastgeleX2 = Random.Range(0, sagSinir - 3);
+
         Vector3 pozisyon = new Vector3(rastgeleX, sonYaratilanY, 0f);
+        Vector3 pozisyon2 = new Vector3(rastgeleX2, sonYaratilanY + 2.5f, 0f);
+
+        int randomNum = Random.Range(0, 100);
+        if (randomNum<10)
+        {
+            int randomEnemy = Random.Range(0, enemyMob.Length);
+            Instantiate(enemyMob[randomEnemy], new Vector2(pozisyon.x, pozisyon.y+1), Quaternion.identity);
+
+        }
+
         Instantiate(platformPrefab, pozisyon, Quaternion.identity);
+        Instantiate(platformPrefab, pozisyon2, Quaternion.identity);
+
 
         // Oluþturulan platformun y pozisyonunu son yaratýlan y pozisyonu olarak güncelle
         sonYaratilanY += yaratmaAraligi;
